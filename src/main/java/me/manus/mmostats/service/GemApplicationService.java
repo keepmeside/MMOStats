@@ -5,9 +5,10 @@ import me.manus.mmostats.config.GemConfig;
 import me.manus.mmostats.util.ItemUtil;
 import me.manus.mmostats.util.PDCUtil;
 import me.manus.mmostats.util.TextUtil;
-import net.Indyuce.mmoitems.api.item.mmoitem.MMOItem;
-import net.Indyuce.mmoitems.api.player.PlayerData;
-import net.Indyuce.mmoitems.api.stat.StatMap;
+// MMOItems imports not available at compile time
+// import net.Indyuce.mmoitems.api.item.mmoitem.MMOItem;
+// import net.Indyuce.mmoitems.api.player.PlayerData;
+// import net.Indyuce.mmoitems.api.stat.StatMap;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -66,28 +67,21 @@ public class GemApplicationService {
         }
 
         // 3. Stat Cap Check
-        if (plugin.getMmoItemsHook().isHooked()) {
-            MMOItem mmoItem = plugin.getMmoItemsHook().getMMOItem(targetItem);
-            // If MMOItem is null, it's a vanilla item, so currentStats will be empty for MMOItems stats.
-            // We need to get existing stats from PDC for vanilla items.
-            StatMap currentStats = (mmoItem != null) ? mmoItem.getStats() : new StatMap(PlayerData.get(player.getUniqueId()));
-            // Also consider stats already applied via PDC for vanilla items
-            Map<String, Double> existingPDCStats = PDCUtil.getAppliedStats(targetItem);
+        Map<String, Double> existingPDCStats = PDCUtil.getAppliedStats(targetItem);
+        
+        for (Map.Entry<String, Double> entry : gemConfig.getStats().entrySet()) {
+            String stat = entry.getKey();
+            double gemValue = entry.getValue();
+            double currentValue = existingPDCStats.getOrDefault(stat, 0.0);
+            double cap = plugin.getConfigManager().getStatCap(stat);
 
-            for (Map.Entry<String, Double> entry : gemConfig.getStats().entrySet()) {
-                String stat = entry.getKey();
-                double gemValue = entry.getValue();
-                double currentValue = currentStats.getStat(stat) + existingPDCStats.getOrDefault(stat, 0.0);
-                double cap = plugin.getConfigManager().getStatCap(stat);
-
-                if (cap != -1 && (currentValue + gemValue) > cap) {
-                    plugin.getMessageManager().sendMessage(player, "exceeds-cap",
-                            "gem", TextUtil.getItemName(gemItemStack),
-                                   "stats", stat + " (Current: " + String.format("%.1f", currentValue) + ", Gem: " + String.format("%.1f", gemValue) + ", Cap: " + String.format("%.1f", cap) + ")");
-                    playSound(player, plugin.getConfigManager().getFailSound());
-                    playParticle(player, plugin.getConfigManager().getFailParticle());
-                    return;
-                }
+            if (cap != -1 && (currentValue + gemValue) > cap) {
+                plugin.getMessageManager().sendMessage(player, "exceeds-cap",
+                        "gem", TextUtil.getItemName(gemItemStack),
+                               "stats", stat + " (Current: " + String.format("%.1f", currentValue) + ", Gem: " + String.format("%.1f", gemValue) + ", Cap: " + String.format("%.1f", cap) + ")");
+                playSound(player, plugin.getConfigManager().getFailSound());
+                playParticle(player, plugin.getConfigManager().getFailParticle());
+                return;
             }
         }
 

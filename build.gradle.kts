@@ -17,18 +17,19 @@ repositories {
 }
 
 dependencies {
-    // Paper API for Minecraft 1.20.6
-    compileOnly("io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT")
+    // Paper API for Minecraft 1.20.1 (compatible with Java 17)
+    compileOnly("io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT")
 
     // Adventure API for modern text formatting (included in Paper, but good for compilation)
-    compileOnly("net.kyori:adventure-api:4.17.0")
+    compileOnly("net.kyori:adventure-api:4.14.0")
     
     // MiniMessage for parsing string formats (shaded)
-    implementation("net.kyori:adventure-text-minimessage:4.17.0")
+    implementation("net.kyori:adventure-text-minimessage:4.14.0")
 
-    // Soft Dependencies
-    compileOnly("net.Indyuce:mmoitems-api:6.10.4") // Use the API version
-    compileOnly("com.github.arcaniax:HeadDatabase-API:v1.3.1")
+    // Note: MMOItems and HeadDatabase APIs are not publicly available
+    // These will be compileOnly dependencies that users need to provide
+    // compileOnly("net.Indyuce:mmoitems-api:6.10.4") // Users need to add this manually
+    // compileOnly("com.github.arcaniax:HeadDatabase-API:v1.3.1") // Users need to add this manually
 }
 
 java {
