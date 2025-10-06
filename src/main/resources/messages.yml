@@ -1,0 +1,17 @@
+# Message Configuration for MMOStats
+# Placeholders: {player}, {gem}, {item}, {type}, {stats}, {id}, {amount}
+prefix: "<gray>[<aqua>MMOStats</aqua>]</gray> "
+no-permission: "{prefix}<red>You do not have permission to use this command.</red>"
+invalid-usage-give: "{prefix}<yellow>Usage: /mmostats give <player> <id> <amount></yellow>"
+invalid-usage-main: "{prefix}<yellow>Usage: /mmostats <give|reload></yellow>"
+gem-not-found: "{prefix}<red>The gem with ID \'{id}\' could not be found.</red>"
+player-not-found: "{prefix}<red>The player \'{player}\' is not online.</red>"
+given-gem: "{prefix}<green>Gave {amount}x {gem} to {player}.</green>"
+reload-ok: "{prefix}<green>Configuration and messages have been reloaded.</green>"
+reload-fail: "{prefix}<red>Failed to reload configs. Check the console for errors.</red>"
+not-compatible: "{prefix}<red>{gem} cannot be applied to {item}. Required type: {type}.</red>"
+duplicate-disallowed: "{prefix}<red>A gem of this type ({gem}) has already been applied to {item}.</red>"
+applied-success: "{prefix}<green>Successfully applied {gem} to {item}! Stats added: {stats}</green>"
+exceeds-cap: "{prefix}<red>Cannot apply {gem}: a stat cap would be exceeded. ({stats})</red>"
+must-be-player: "{prefix}<red>This command can only be run by a player.</red>"
+invalid-amount: "{prefix}<red>The amount must be a positive number.</red>"

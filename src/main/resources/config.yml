@@ -1,0 +1,74 @@
+# MMOStats Configuration File
+# color-mode: "mini_message" (recommended) or "legacy" (& codes)
+language: "en_US"
+color-mode: "mini_message"
+
+# Sound and particle effects for applying gems
+sounds:
+  success: "ENTITY_PLAYER_LEVELUP"
+  fail: "ENTITY_VILLAGER_NO"
+particles:
+  success: "HAPPY_VILLAGER"
+  fail: "SMOKE"
+
+# If true, prevents applying the same gem ID to an item more than once.
+prevent-duplicates: true
+
+# Optional: Define maximum caps for specific stats. Set to -1 to disable a cap.
+# These are checked against the item's *new* total after the gem is applied.
+stat-caps:
+  DAMAGE: 9999
+  ATTACK_SPEED: 100.0
+  MAX_HEALTH: 5000
+  DEFENSE: 2000
+
+# Maps your custom gem 'types' to official Bukkit Material categories or MMOItems types.
+# Use '*' for a wildcard match.
+# MMOItems types: MMO_ARMOR, MMO_WEAPON, MMO_TOOL, etc.
+type-mapping:
+  ARMOR: ["LEATHER_ARMOR", "CHAINMAIL_ARMOR", "IRON_ARMOR", "GOLD_ARMOR", "DIAMOND_ARMOR", "NETHERITE_ARMOR", "MMO_ARMOR"]
+  WEAPON: ["SWORD", "AXE", "MMO_WEAPON"]
+  TOOL: ["PICKAXE", "SHOVEL", "HOE", "AXE", "MMO_TOOL"]
+  BOW: ["BOW"]
+  CROSSBOW: ["CROSSBOW"]
+  TRIDENT: ["TRIDENT"]
+  SHIELD: ["SHIELD"]
+  ALL: ["*"]
+
+# --- Gem Definitions ---
+gems:
+  ruby_damage:
+    id: "ruby_damage"
+    name: "<red><bold>Ruby of Power</bold></red>"
+    # Material can be a standard Bukkit Material or a HeadDatabase ID like "HDB:12345"
+    material: "REDSTONE"
+    type: "WEAPON"
+    stats:
+      DAMAGE: 12
+      CRITICAL_STRIKE_CHANCE: 5.0
+    lore:
+      - "<gray>Socket to add {stats}</gray>"
+      - "<dark_gray>Type: {type}</dark_gray>"
+
+  guardian_plate:
+    id: "guardian_plate"
+    name: "&bGuardian Plate"
+    material: "HDB:26488" # Example Guardian head from HeadDatabase
+    type: "ARMOR"
+    stats:
+      DEFENSE: 30
+      MAX_HEALTH: 5
+    lore:
+      - "&7Embedding grants {stats}"
+      - "&8Type: {type}"
+
+  swift_crystal:
+    id: "swift_crystal"
+    name: "<yellow>Crystal of Swiftness</yellow>"
+    material: "QUARTZ"
+    type: "TOOL"
+    stats:
+      MINING_SPEED: 15.0
+    lore:
+      - "<gray>A crystal humming with energy.</gray>"
+      - "<dark_gray>Type: {type}</dark_gray>"

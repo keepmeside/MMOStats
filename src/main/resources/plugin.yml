@@ -1,0 +1,19 @@
+name: MMOStats
+version: '${project.version}'
+main: me.manus.mmostats.MMOStats
+api-version: '1.20'
+author: Manus
+description: Adds socketable gems to apply MMO-style stats to items.
+softdepend: [MMOItems, HeadDatabase]
+
+commands:
+  mmostats:
+    description: Main command for the MMOStats plugin.
+    aliases: [ms, mstats]
+    permission: mmostats.admin
+    usage: /<command> [give|reload]
+
+permissions:
+  mmostats.admin:
+    description: Grants access to all MMOStats admin commands.
+    default: op
